@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Índice Completo del Libro de Patología</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .heart {
+            color: #e74c3c;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        /* .chapters-list {
+            list-style-type: none;
+            max-height: 70vh;
+            overflow-y: auto;
+        }*/
+
+        .chapter-item {
+            border-bottom: 1px solid #ecf0f1;
+            transition: background-color 0.3s;
+        }
+
+        .chapter-item:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: all 0.3s;
+        }
+
+        .chapter-link:hover {
+            background-color: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .chapter-info {
+            flex: 1;
+        }
+
+        .chapter-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .chapter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .chapter-author {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 3px;
+            font-style: italic;
+        }
+
+        .chapter-page {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-top: 3px;
+        }
+
+        .download-icon {
+            color: #3498db;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            transition: transform 0.3s;
+        }
+
+        .chapter-link:hover .download-icon {
+            transform: translateX(5px);
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .chapter-link {
+                padding: 15px;
+            }
+
+            .chapter-title {
+                font-size: 1rem;
+            }
+
+            .chapters-list {
+                /*max-height: 60vh;*/
+            }
+        }
+
+.box-master {
+    background-image: url(./img/BACKGROUND1.jpg);
+    height: 423px;
+    width: 100%;
+    background-size: cover;
+    max-width: 408px;
+    /*border-radius: 9px;
+    margin: 10px 0px;*/
+}
+
+.box-container{
+    position: relative;
+    margin-top: 325px;
+    background: #75338fa3;
+    backdrop-filter: blur(7px);
+    padding: 10px 5px;
+    border-radius: 12px;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="box-master"></div>
+
+       <!-- <div class="header">
+
+            <h1>Índice Completo del Libro: <br>
+                Robbins y Cotran. Patología estructural y funcional, 10ª edición</h1>
+
+
+
+            <p>Hecho con <span class="heart">❤️</span> para que estudiar sea más fácil</p>
+        </div> -->
+
+
+        <div class="box-container">
+
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Buscar capítulo..." id="searchInput">
+        </div>
+
+        <div class="container">
+            <ul class="chapters-list" id="chaptersList">
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="1">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 1</div>
+                            <div class="chapter-title">La célula como unidad de salud y enfermedad</div>
+                            <div class="chapter-author">Richard N. Mitchell</div>
+                            <div class="chapter-page">Página 1</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="2">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 2</div>
+                            <div class="chapter-title">Lesión celular, muerte celular y adaptaciones</div>
+                            <div class="chapter-author">Scott A. Oakes</div>
+                            <div class="chapter-page">Página 33</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="3">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 3</div>
+                            <div class="chapter-title">Inflamación y reparación</div>
+                            <div class="chapter-page">Página 71</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="4">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 4</div>
+                            <div class="chapter-title">Trastornos hemodinámicos, enfermedad tromboembólica y shock</div>
+                            <div class="chapter-page">Página 115</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="5">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 5</div>
+                            <div class="chapter-title">Trastornos genéticos</div>
+                            <div class="chapter-page">Página 141</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="6">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 6</div>
+                            <div class="chapter-title">Enfermedades del sistema inmunitario</div>
+                            <div class="chapter-page">Página 189</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="7">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 7</div>
+                            <div class="chapter-title">Neoplasias</div>
+                            <div class="chapter-page">Página 267</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="8">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 8</div>
+                            <div class="chapter-title">Enfermedades infecciosas</div>
+                            <div class="chapter-author">Karen M. Frank • Alexander J. McAdam</div>
+                            <div class="chapter-page">Página 339</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="9">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 9</div>
+                            <div class="chapter-title">Enfermedades ambientales y nutricionales</div>
+                            <div class="chapter-page">Página 405</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="10">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 10</div>
+                            <div class="chapter-title">Enfermedades de la lactancia y la infancia</div>
+                            <div class="chapter-author">Aliya N. Husain • Selene C. Koo</div>
+                            <div class="chapter-page">Página 453</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="11">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 11</div>
+                            <div class="chapter-title">Vasos sanguíneos</div>
+                            <div class="chapter-author">Richard N. Mitchell • Marc K. Halushka</div>
+                            <div class="chapter-page">Página 485</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="12">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 12</div>
+                            <div class="chapter-title">Corazón</div>
+                            <div class="chapter-author">Richard N. Mitchell • Andrew J. Connolly</div>
+                            <div class="chapter-page">Página 527</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="13">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 13</div>
+                            <div class="chapter-title">Enfermedades de los leucocitos, ganglios linfáticos, bazo y timo
+                            </div>
+                            <div class="chapter-page">Página 583</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="14">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 14</div>
+                            <div class="chapter-title">Trastornos de los eritrocitos y trastornos hemorrágicos</div>
+                            <div class="chapter-page">Página 635</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="15">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 15</div>
+                            <div class="chapter-title">Pulmón</div>
+                            <div class="chapter-author">Aliya N. Husain</div>
+                            <div class="chapter-page">Página 673</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="16">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 16</div>
+                            <div class="chapter-title">Cabeza y cuello</div>
+                            <div class="chapter-author">Mark W. Lingen • Nicole A. Cipriani</div>
+                            <div class="chapter-page">Página 731</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="17">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 17</div>
+                            <div class="chapter-title">Tubo digestivo</div>
+                            <div class="chapter-page">Página 753</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="18">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 18</div>
+                            <div class="chapter-title">Hígado y vesícula biliar</div>
+                            <div class="chapter-author">Ryan M. Gill • Sanjay Kakar</div>
+                            <div class="chapter-page">Página 823</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="19">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 19</div>
+                            <div class="chapter-title">Páncreas</div>
+                            <div class="chapter-author">Anirban Maitra</div>
+                            <div class="chapter-page">Página 881</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="20">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 20</div>
+                            <div class="chapter-title">Riñón</div>
+                            <div class="chapter-author">Anthony Chang • Zoltan G. Laszik</div>
+                            <div class="chapter-page">Página 895</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="21">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 21</div>
+                            <div class="chapter-title">Vías urinarias inferiores y aparato genital masculino</div>
+                            <div class="chapter-author">George Jabboure Netto • Mahul B. Amin</div>
+                            <div class="chapter-page">Página 953</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="22">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 22</div>
+                            <div class="chapter-title">Aparato genital femenino</div>
+                            <div class="chapter-author">Lora Hedrick Ellenson • Edyta C. Pirog</div>
+                            <div class="chapter-page">Página 985</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="23">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 23</div>
+                            <div class="chapter-title">Mama</div>
+                            <div class="chapter-author">Susan C. Lester</div>
+                            <div class="chapter-page">Página 1037</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="24">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 24</div>
+                            <div class="chapter-title">Sistema endocrino</div>
+                            <div class="chapter-author">Anirban Maitra</div>
+                            <div class="chapter-page">Página 1065</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="25">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 25</div>
+                            <div class="chapter-title">Piel</div>
+                            <div class="chapter-author">Alexander J. Lazar</div>
+                            <div class="chapter-page">Página 1133</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="26">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 26</div>
+                            <div class="chapter-title">Tumores de huesos, articulaciones y tejidos blandos</div>
+                            <div class="chapter-author">Andrew Horvai</div>
+                            <div class="chapter-page">Página 1171</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="27">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 27</div>
+                            <div class="chapter-title">Nervios periféricos y músculos esqueléticos</div>
+                            <div class="chapter-author">Peter Pytel • Douglas C. Anthony</div>
+                            <div class="chapter-page">Página 1217</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="28">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 28</div>
+                            <div class="chapter-title">Sistema nervioso central</div>
+                            <div class="chapter-author">Marta Margeta • Arie Perry</div>
+                            <div class="chapter-page">Página 1241</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="29">
+                        <div class="chapter-info">
+                            <div class="chapter-number">CAPÍTULO 29</div>
+                            <div class="chapter-title">Ojo</div>
+                            <div class="chapter-author">Robert Folkerg</div>
+                            <div class="chapter-page">Página 1305</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="30">
+                        <div class="chapter-info">
+                            <div class="chapter-number">ÍNDICE</div>
+                            <div class="chapter-title">Índice alfabético</div>
+                            <div class="chapter-page">Página 1329</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
+            </ul>
+
+
+            </div>
+
+        <div class="footer">
+            <p>Selecciona un capítulo para descargar el PDF correspondiente</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chapterLinks = document.querySelectorAll('.chapter-link');
+            const searchInput = document.getElementById('searchInput');
+            const chaptersList = document.getElementById('chaptersList');
+            const chapterItems = document.querySelectorAll('.chapter-item');
+
+            // Función para buscar capítulos
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+
+                chapterItems.forEach(item => {
+                    const title = item.querySelector('.chapter-title').textContent.toLowerCase();
+                    const number = item.querySelector('.chapter-number').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) || number.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            // Función para descargar PDFs
+            chapterLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const chapterNumber = this.getAttribute('data-chapter');
+
+                    // Aquí debes reemplazar con las URLs reales de los PDFs
+                    const pdfUrls = {
+                        '1': 'capitulo1.pdf',
+                        '2': 'capitulo2.pdf',
+                        '3': 'capitulo3.pdf',
+                        '4': 'capitulo4.pdf',
+                        '5': 'capitulo5.pdf',
+                        '6': 'capitulo6.pdf',
+                        '7': 'capitulo7.pdf',
+                        '8': 'capitulo8.pdf',
+                        '9': 'capitulo9.pdf',
+                        '10': 'capitulo10.pdf',
+                        '11': 'capitulo11.pdf',
+                        '12': 'capitulo12.pdf',
+                        '13': 'capitulo13.pdf',
+                        '14': 'capitulo14.pdf',
+                        '15': 'capitulo15.pdf',
+                        '16': 'capitulo16.pdf',
+                        '17': 'capitulo17.pdf',
+                        '18': 'capitulo18.pdf',
+                        '19': 'capitulo19.pdf',
+                        '20': 'capitulo20.pdf',
+                        '21': 'capitulo21.pdf',
+                        '22': 'capitulo22.pdf',
+                        '23': 'capitulo23.pdf',
+                        '24': 'capitulo24.pdf',
+                        '25': 'capitulo25.pdf',
+                        '26': 'capitulo26.pdf',
+                        '27': 'capitulo27.pdf',
+                        '28': 'capitulo28.pdf',
+                        '29': 'capitulo29.pdf',
+                        '30': 'indice.pdf'
+                    };
+
+                    const pdfUrl = pdfUrls[chapterNumber];
+                    if (pdfUrl) {
+                        // Crear un enlace temporal para descargar el PDF
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = pdfUrl;
+                        downloadLink.target = '_blank';
+                        downloadLink.download = `capitulo-${chapterNumber}.pdf`;
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                    } else {
+                        alert('El PDF para este capítulo no está disponible aún.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
