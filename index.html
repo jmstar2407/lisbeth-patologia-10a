@@ -231,12 +231,78 @@
             color: #7f8c8d;
             font-size: 0.9rem;
         }
+
+        /* Estilos para el popup de descarga */
+        .download-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .download-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 80%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-content h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .popup-content p {
+            margin-bottom: 20px;
+            color: #7f8c8d;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
 <body>
 
     <div class="box-master"></div>
+
+    <!-- Popup de descarga -->
+    <div class="download-popup" id="downloadPopup">
+        <div class="popup-content">
+            <div class="loading-spinner"></div>
+            <h3>Descargando...</h3>
+            <p id="popupMessage">Preparando el capítulo para descarga</p>
+        </div>
+    </div>
 
     <!-- <div class="header">
 
@@ -596,6 +662,8 @@
             const chaptersList = document.getElementById('chaptersList');
             const chapterItems = document.querySelectorAll('.chapter-item');
             const resultsCount = document.getElementById('resultsCount');
+            const downloadPopup = document.getElementById('downloadPopup');
+            const popupMessage = document.getElementById('popupMessage');
 
             // Guardar el contenido original para restaurar después
             const originalContents = {};
@@ -705,6 +773,18 @@
 
             searchInput.addEventListener('input', performSearch);
 
+            // Función para mostrar el popup de descarga
+            function showDownloadPopup(chapterNumber) {
+                const chapterTitle = document.querySelector(`.chapter-link[data-chapter="${chapterNumber}"] .chapter-title`).textContent;
+                popupMessage.textContent = `Descargando: ${chapterTitle}`;
+                downloadPopup.classList.add('active');
+            }
+
+            // Función para ocultar el popup de descarga
+            function hideDownloadPopup() {
+                downloadPopup.classList.remove('active');
+            }
+
             // Función para descargar PDFs
             chapterLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
@@ -713,49 +793,58 @@
 
                     // Aquí debes reemplazar con las URLs reales de los PDFs
                     const pdfUrls = {
-                        '1': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0001-0032.pdf?alt=media&token=6da94edc-207a-411f-a07e-2cc6b5da4c0e',
-                        '2': 'docs/0033-0070.pdf',
-                        '3': 'docs/0071-0114.pdf',
-                        '4': 'docs/0115-0140.pdf',
-                        '5': 'docs/0141-0188.pdf',
-                        '6': 'docs/0189-0266.pdf',
-                        '7': 'docs/0267-0338.pdf',
-                        '8': 'docs/0339-0404.pdf',
-                        '9': 'docs/0405-0452.pdf',
-                        '10': 'docs/0453-0484.pdf',
-                        '11': 'docs/0485-0526.pdf',
-                        '12': 'docs/0527-0582.pdf',
-                        '13': 'docs/0583-0634.pdf',
-                        '14': 'docs/0635-0672.pdf',
-                        '15': 'docs/0673-0730.pdf',
-                        '16': 'docs/0731-0752.pdf',
-                        '17': 'docs/0753-0822.pdf',
-                        '18': 'docs/0823-0880.pdf',
-                        '19': 'docs/0881-0894.pdf',
-                        '20': 'docs/0895-0952.pdf',
-                        '21': 'docs/0953-0984.pdf',
-                        '22': 'docs/0985-1036.pdf',
-                        '23': 'docs/1037-1064.pdf',
-                        '24': 'docs/1065-1132.pdf',
-                        '25': 'docs/1133-1170.pdf',
-                        '26': 'docs/1171-1216.pdf',
-                        '27': 'docs/1217-1240.pdf',
-                        '28': 'docs/1241-1304.pdf',
-                        '29': 'docs/1305-1328.pdf',
-                        '30': 'docs/1329-1378.pdf'
+                        '1': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0001-0032.pdf?alt=media&token=a694c40e-a09f-49cd-ae15-df43b766f83f',
+                        '2': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0033-0070.pdf?alt=media&token=ac33b139-747d-48e8-91fa-9b8e596848af',
+                        '3': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0071-0114.pdf?alt=media&token=36d5e6b9-a61c-47f1-987e-bd038d8a60fc',
+                        '4': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0115-0140.pdf?alt=media&token=d32594a4-8c87-48bf-84d1-371b5727327d',
+                        '5': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0141-0188.pdf?alt=media&token=9d6167bd-9f3f-435b-8cf3-014de7e490f0',
+                        '6': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0189-0266.pdf?alt=media&token=95206654-71aa-407a-9913-fd29e3eb85cc',
+                        '7': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0267-0338.pdf?alt=media&token=622ebf1e-d22b-4375-a6f9-f5a8f0dbf1d1',
+                        '8': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0339-0404.pdf?alt=media&token=1f36271b-f806-461f-b065-e94b4246c9ed',
+                        '9': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0405-0452.pdf?alt=media&token=e2ef1a61-be88-4bf8-af1c-f8ab5556246c',
+                        '10': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0453-0484.pdf?alt=media&token=483fcd89-25b6-4eed-a81d-19150c2c4b23',
+                        '11': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0485-0526.pdf?alt=media&token=aab563ed-b851-4fc4-91e7-dfb0c6306f8e',
+                        '12': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0527-0582.pdf?alt=media&token=aa50bc47-816d-4f7b-ab7e-3482ac907a17',
+                        '13': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0583-0634.pdf?alt=media&token=1fd3adfd-1552-438d-8bf5-4e987b0bdc0e',
+                        '14': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0635-0672.pdf?alt=media&token=655d6388-c025-49ed-8af8-4ce97c94b10e',
+                        '15': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0673-0730.pdf?alt=media&token=0aed77b2-5b48-45cf-a63e-7269c85c6a0f',
+                        '16': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0731-0752.pdf?alt=media&token=60f5425a-85b9-4196-b8ce-fe2cb02dac54',
+                        '17': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0753-0822.pdf?alt=media&token=d913dd8c-c8a6-4f0d-a18f-a1bd644701d0',
+                        '18': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0823-0880.pdf?alt=media&token=7bed475c-1406-44c8-9fe1-03ca12f89a7e',
+                        '19': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0881-0894.pdf?alt=media&token=93701a3d-5bfb-4231-8662-a2a250340939',
+                        '20': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0895-0952.pdf?alt=media&token=f4efda6f-8cd7-4adf-a765-8e7555413fa6',
+                        '21': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0953-0984.pdf?alt=media&token=94cebea3-6e64-4e76-9e03-28fd2af84331',
+                        '22': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F0985-1036.pdf?alt=media&token=94db08fe-9868-424b-a87d-5aa85ef69483',
+                        '23': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1037-1064.pdf?alt=media&token=93bbb59d-3db4-44cc-94a0-7f4e199ccce0',
+                        '24': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1065-1132.pdf?alt=media&token=b0272857-1b76-4403-a2cd-e1e79959fdd5',
+                        '25': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1133-1170.pdf?alt=media&token=b6970075-97de-4144-9269-5638e4971884',
+                        '26': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1171-1216.pdf?alt=media&token=6f966a86-bc0a-4186-80a5-c6e68a89c264',
+                        '27': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1217-1240.pdf?alt=media&token=0fbaa37b-5ec5-4846-8971-f5d80794b66a',
+                        '28': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1241-1304.pdf?alt=media&token=87c8254c-ff6a-4c0a-9153-af99f8373170',
+                        '29': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1305-1328.pdf?alt=media&token=f4b1cec1-b4de-4d01-b988-067818302900',
+                        '30': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1329-1378.pdf?alt=media&token=1ba2cc16-de03-4622-853b-92b304f3b3b6'
                     };
-
 
                     const pdfUrl = pdfUrls[chapterNumber];
                     if (pdfUrl) {
+                        // Mostrar el popup de descarga
+                        showDownloadPopup(chapterNumber);
+                        
                         // Crear un enlace temporal para descargar el PDF
                         const downloadLink = document.createElement('a');
                         downloadLink.href = pdfUrl;
                         downloadLink.target = '_blank';
                         downloadLink.download = `capitulo-${chapterNumber}.pdf`;
-                        document.body.appendChild(downloadLink);
-                        downloadLink.click();
-                        document.body.removeChild(downloadLink);
+                        
+                        // Simular un retraso para que se vea el mensaje de descarga
+                        setTimeout(() => {
+                            document.body.appendChild(downloadLink);
+                            downloadLink.click();
+                            document.body.removeChild(downloadLink);
+                            
+                            // Ocultar el popup después de un breve tiempo
+                            setTimeout(hideDownloadPopup, 1000);
+                        }, 1500);
                     } else {
                         alert('El PDF para este capítulo no está disponible aún.');
                     }
