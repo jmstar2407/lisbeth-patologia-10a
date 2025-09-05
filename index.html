@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Índice Completo del Libro de Patología</title>
+    <title>Robbins y Cotran. Patología estructural y funcional, 10ª edición</title>
+    <link rel="icon" href="./img/icon_1.png" type="image/png" sizes="any">
     <style>
         * {
             margin: 0;
@@ -206,6 +207,20 @@
     padding: 10px 10px;
     border-radius: 12px 12px 0px 0px;
 }
+
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 0 2px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .results-count {
+            text-align: center;
+            margin-top: 10px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
@@ -233,7 +248,7 @@
         <div class="container">
             <ul class="chapters-list" id="chaptersList">
                 <li class="chapter-item">
-                    <a href="#" class="chapter-link" data-chapter="1">
+                    <a href="./bocs/0001-0032.pdf" class="chapter-link" data-chapter="1">
                         <div class="chapter-info">
                             <div class="chapter-number">CAPÍTULO 1</div>
                             <div class="chapter-title">La célula como unidad de salud y enfermedad</div>
@@ -244,7 +259,7 @@
                     </a>
                 </li>
                 <li class="chapter-item">
-                    <a href="#" class="chapter-link" data-chapter="2">
+                    <a href="./bocs/0033-0070.pdf" class="chapter-link" data-chapter="2">
                         <div class="chapter-info">
                             <div class="chapter-number">CAPÍTULO 2</div>
                             <div class="chapter-title">Lesión celular, muerte celular y adaptaciones</div>
@@ -559,33 +574,126 @@
             </div>
 
         <div class="footer">
-            <p>Selecciona un capítulo para descargar el PDF correspondiente</p>
+            <p style="color: #f7f7f7;">© 2025 - Developed By José Polanco.</p>
         </div>
 
     </div>
 
-    <script>
+      <script>
         document.addEventListener('DOMContentLoaded', function () {
             const chapterLinks = document.querySelectorAll('.chapter-link');
             const searchInput = document.getElementById('searchInput');
             const chaptersList = document.getElementById('chaptersList');
             const chapterItems = document.querySelectorAll('.chapter-item');
+            const resultsCount = document.getElementById('resultsCount');
+            
+            // Guardar el contenido original para restaurar después
+            const originalContents = {};
+            chapterItems.forEach(item => {
+                const titleElement = item.querySelector('.chapter-title');
+                const numberElement = item.querySelector('.chapter-number');
+                const authorElement = item.querySelector('.chapter-author');
+                originalContents[item.querySelector('.chapter-link').getAttribute('data-chapter')] = {
+                    title: titleElement.innerHTML,
+                    number: numberElement.innerHTML,
+                    author: authorElement ? authorElement.innerHTML : ''
+                };
+            });
+
+            // Función para normalizar texto (eliminar acentos y convertir a minúsculas)
+            function normalizeText(text) {
+                return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            }
+
+            // Función para resaltar texto
+            function highlightText(element, searchTerm) {
+                const originalText = element.textContent;
+                const normalizedOriginal = normalizeText(originalText);
+                const normalizedSearch = normalizeText(searchTerm);
+                
+                // Si no hay término de búsqueda, restaurar el texto original
+                if (!searchTerm.trim()) {
+                    const chapter = element.closest('.chapter-link').getAttribute('data-chapter');
+                    if (originalContents[chapter]) {
+                        if (element.classList.contains('chapter-title')) {
+                            element.innerHTML = originalContents[chapter].title;
+                        } else if (element.classList.contains('chapter-number')) {
+                            element.innerHTML = originalContents[chapter].number;
+                        } else if (element.classList.contains('chapter-author')) {
+                            element.innerHTML = originalContents[chapter].author;
+                        }
+                    }
+                    return;
+                }
+                
+                // Buscar todas las ocurrencias del término
+                let startIndex = 0;
+                let result = '';
+                let found = false;
+                
+                while (startIndex < normalizedOriginal.length) {
+                    const index = normalizedOriginal.indexOf(normalizedSearch, startIndex);
+                    
+                    if (index === -1) {
+                        // No se encontraron más coincidencias
+                        result += originalText.substring(startIndex);
+                        break;
+                    }
+                    
+                    found = true;
+                    // Añadir el texto antes de la coincidencia
+                    result += originalText.substring(startIndex, index);
+                    // Añadir el texto resaltado
+                    result += `<span class="highlight">${originalText.substring(index, index + searchTerm.length)}</span>`;
+                    
+                    startIndex = index + searchTerm.length;
+                }
+                
+                if (found) {
+                    element.innerHTML = result;
+                }
+            }
 
             // Función para buscar capítulos
-            searchInput.addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase();
+            function performSearch() {
+                const searchTerm = searchInput.value;
+                const normalizedSearch = normalizeText(searchTerm);
+                let visibleCount = 0;
 
                 chapterItems.forEach(item => {
-                    const title = item.querySelector('.chapter-title').textContent.toLowerCase();
-                    const number = item.querySelector('.chapter-number').textContent.toLowerCase();
+                    const title = item.querySelector('.chapter-title');
+                    const number = item.querySelector('.chapter-number');
+                    const author = item.querySelector('.chapter-author');
+                    const normalizedTitle = normalizeText(title.textContent);
+                    const normalizedNumber = normalizeText(number.textContent);
+                    const normalizedAuthor = author ? normalizeText(author.textContent) : '';
 
-                    if (title.includes(searchTerm) || number.includes(searchTerm)) {
+                    if (normalizedTitle.includes(normalizedSearch) || 
+                        normalizedNumber.includes(normalizedSearch) || 
+                        normalizedAuthor.includes(normalizedSearch)) {
                         item.style.display = 'block';
+                        visibleCount++;
+                        
+                        // Resaltar el texto encontrado
+                        if (searchTerm) {
+                            highlightText(title, searchTerm);
+                            highlightText(number, searchTerm);
+                            if (author) highlightText(author, searchTerm);
+                        }
                     } else {
                         item.style.display = 'none';
                     }
                 });
-            });
+
+                // Actualizar contador de resultados
+                if (searchTerm.trim() === '') {
+                    resultsCount.textContent = 'Mostrando todos los capítulos';
+                } else {
+                    resultsCount.textContent = `Encontrados ${visibleCount} capítulos para "${searchTerm}"`;
+                }
+            }
+
+            searchInput.addEventListener('input', performSearch);
 
             // Función para descargar PDFs
             chapterLinks.forEach(link => {
