@@ -3,18 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Robbins y Cotran. Patología estructural y funcional, 10ª edición</title>
     <link rel="icon" href="./img/background_2.jpg" type="image/png" sizes="any">
 
-    <meta name="description" content="Accede al índice completo del libro Robbins y Cotran: Patología estructural y funcional, 10ª edición. Descarga capítulos en PDF.">
+    <meta name="description"
+        content="Accede al índice completo del libro Robbins y Cotran: Patología estructural y funcional, 10ª edición. Descarga capítulos en PDF.">
 
-<!-- WhatsApp Preview (Open Graph) -->
-<meta property="og:title" content="Robbins y Cotran - Patología estructural y funcional, 10ª edición">
-<meta property="og:description" content="Consulta el índice completo del libro y descarga capítulos en PDF de manera rápida y sencilla.">
-<meta property="og:image" content="https://jmstar2407.github.io/lisbeth-patologia-10a/img/background_3.png">
-<meta property="og:url" content="https://jmstar2407.github.io/lisbeth-patologia-10a/">
-<meta property="og:type" content="website">
+    <!-- WhatsApp Preview (Open Graph) -->
+    <meta property="og:title" content="Robbins y Cotran - Patología estructural y funcional, 10ª edición">
+    <meta property="og:description"
+        content="Consulta el índice completo del libro y descarga capítulos en PDF de manera rápida y sencilla.">
+    <meta property="og:image" content="https://jmstar2407.github.io/lisbeth-patologia-10a/img/background_3.png">
+    <meta property="og:url" content="https://jmstar2407.github.io/lisbeth-patologia-10a/">
+    <meta property="og:type" content="website">
 
     <style>
         * {
@@ -25,7 +27,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(140deg, #dbd6ff 0%, #8a6699 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -285,8 +287,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -644,6 +651,16 @@
                         <div class="download-icon">📥</div>
                     </a>
                 </li>
+                <li class="chapter-item">
+                    <a href="#" class="chapter-link" data-chapter="31">
+                        <div class="chapter-info">
+                            <div class="chapter-number">Libro Completo Comprimido (427MB)</div>
+                            <div class="chapter-title">Robbins y Cotran. Patología estructural y funcional, 10ª edición</div>
+                            <div class="chapter-page">1329 Páginas</div>
+                        </div>
+                        <div class="download-icon">📥</div>
+                    </a>
+                </li>
             </ul>
 
 
@@ -822,26 +839,27 @@
                         '27': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1217-1240.pdf?alt=media&token=0fbaa37b-5ec5-4846-8971-f5d80794b66a',
                         '28': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1241-1304.pdf?alt=media&token=87c8254c-ff6a-4c0a-9153-af99f8373170',
                         '29': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1305-1328.pdf?alt=media&token=f4b1cec1-b4de-4d01-b988-067818302900',
-                        '30': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1329-1378.pdf?alt=media&token=1ba2cc16-de03-4622-853b-92b304f3b3b6'
+                        '30': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2F1329-1378.pdf?alt=media&token=1ba2cc16-de03-4622-853b-92b304f3b3b6',
+                        '31': 'https://firebasestorage.googleapis.com/v0/b/arribate-com.firebasestorage.app/o/docs%2FRobbins%20y%20Cotran%20Patologia%20Estructural%20y%20Funcional%2010a%20Edicion_COMPRIMIDO%20427MB-jm.pdf?alt=media&token=b13a66cf-26ff-4368-86fb-84f360f7916f'
                     };
 
                     const pdfUrl = pdfUrls[chapterNumber];
                     if (pdfUrl) {
                         // Mostrar el popup de descarga
                         showDownloadPopup(chapterNumber);
-                        
+
                         // Crear un enlace temporal para descargar el PDF
                         const downloadLink = document.createElement('a');
                         downloadLink.href = pdfUrl;
                         downloadLink.target = '_blank';
                         downloadLink.download = `capitulo-${chapterNumber}.pdf`;
-                        
+
                         // Simular un retraso para que se vea el mensaje de descarga
                         setTimeout(() => {
                             document.body.appendChild(downloadLink);
                             downloadLink.click();
                             document.body.removeChild(downloadLink);
-                            
+
                             // Ocultar el popup después de un breve tiempo
                             setTimeout(hideDownloadPopup, 1000);
                         }, 1500);
