@@ -188,25 +188,25 @@
             }
         }
 
-.box-master {
-    background-image: url(./img/background_2.jpg);
-    height: 423px;
-    width: 100%;
-    background-size: cover;
-    max-width: 408px;
-    position: fixed;
-    /* min-width: 373px; */
-    /* background-repeat: no-repeat; */
-}
+        .box-master {
+            background-image: url(./img/background_2.jpg);
+            height: 423px;
+            width: 100%;
+            background-size: cover;
+            max-width: 408px;
+            position: fixed;
+            /* min-width: 373px; */
+            /* background-repeat: no-repeat; */
+        }
 
-.box-container {
-    position: relative;
-    margin-top: 350px;
-    background: #75338fa3;
-    backdrop-filter: blur(7px);
-    padding: 10px 10px;
-    border-radius: 12px 12px 0px 0px;
-}
+        .box-container {
+            position: relative;
+            margin-top: 350px;
+            background: #75338fa3;
+            backdrop-filter: blur(7px);
+            padding: 10px 10px;
+            border-radius: 12px 12px 0px 0px;
+        }
 
         .highlight {
             background-color: #ffeb3b;
@@ -228,7 +228,7 @@
 
     <div class="box-master"></div>
 
-       <!-- <div class="header">
+    <!-- <div class="header">
 
             <h1>Índice Completo del Libro: <br>
                 Robbins y Cotran. Patología estructural y funcional, 10ª edición</h1>
@@ -239,7 +239,7 @@
         </div> -->
 
 
-        <div class="box-container">
+    <div class="box-container">
 
         <div class="search-container">
             <input type="text" class="search-box" placeholder="Buscar capítulo..." id="searchInput">
@@ -248,7 +248,7 @@
         <div class="container">
             <ul class="chapters-list" id="chaptersList">
                 <li class="chapter-item">
-                    <a href="./bocs/0001-0032.pdf" class="chapter-link" data-chapter="1">
+                    <a href="#" class="chapter-link" data-chapter="1">
                         <div class="chapter-info">
                             <div class="chapter-number">CAPÍTULO 1</div>
                             <div class="chapter-title">La célula como unidad de salud y enfermedad</div>
@@ -259,7 +259,7 @@
                     </a>
                 </li>
                 <li class="chapter-item">
-                    <a href="./bocs/0033-0070.pdf" class="chapter-link" data-chapter="2">
+                    <a href="#" class="chapter-link" data-chapter="2">
                         <div class="chapter-info">
                             <div class="chapter-number">CAPÍTULO 2</div>
                             <div class="chapter-title">Lesión celular, muerte celular y adaptaciones</div>
@@ -571,7 +571,7 @@
             </ul>
 
 
-            </div>
+        </div>
 
         <div class="footer">
             <p style="color: #f7f7f7;">© 2025 - Developed By José Polanco.</p>
@@ -579,14 +579,14 @@
 
     </div>
 
-      <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const chapterLinks = document.querySelectorAll('.chapter-link');
             const searchInput = document.getElementById('searchInput');
             const chaptersList = document.getElementById('chaptersList');
             const chapterItems = document.querySelectorAll('.chapter-item');
             const resultsCount = document.getElementById('resultsCount');
-            
+
             // Guardar el contenido original para restaurar después
             const originalContents = {};
             chapterItems.forEach(item => {
@@ -610,7 +610,7 @@
                 const originalText = element.textContent;
                 const normalizedOriginal = normalizeText(originalText);
                 const normalizedSearch = normalizeText(searchTerm);
-                
+
                 // Si no hay término de búsqueda, restaurar el texto original
                 if (!searchTerm.trim()) {
                     const chapter = element.closest('.chapter-link').getAttribute('data-chapter');
@@ -625,30 +625,30 @@
                     }
                     return;
                 }
-                
+
                 // Buscar todas las ocurrencias del término
                 let startIndex = 0;
                 let result = '';
                 let found = false;
-                
+
                 while (startIndex < normalizedOriginal.length) {
                     const index = normalizedOriginal.indexOf(normalizedSearch, startIndex);
-                    
+
                     if (index === -1) {
                         // No se encontraron más coincidencias
                         result += originalText.substring(startIndex);
                         break;
                     }
-                    
+
                     found = true;
                     // Añadir el texto antes de la coincidencia
                     result += originalText.substring(startIndex, index);
                     // Añadir el texto resaltado
                     result += `<span class="highlight">${originalText.substring(index, index + searchTerm.length)}</span>`;
-                    
+
                     startIndex = index + searchTerm.length;
                 }
-                
+
                 if (found) {
                     element.innerHTML = result;
                 }
@@ -668,12 +668,12 @@
                     const normalizedNumber = normalizeText(number.textContent);
                     const normalizedAuthor = author ? normalizeText(author.textContent) : '';
 
-                    if (normalizedTitle.includes(normalizedSearch) || 
-                        normalizedNumber.includes(normalizedSearch) || 
+                    if (normalizedTitle.includes(normalizedSearch) ||
+                        normalizedNumber.includes(normalizedSearch) ||
                         normalizedAuthor.includes(normalizedSearch)) {
                         item.style.display = 'block';
                         visibleCount++;
-                        
+
                         // Resaltar el texto encontrado
                         if (searchTerm) {
                             highlightText(title, searchTerm);
@@ -703,37 +703,38 @@
 
                     // Aquí debes reemplazar con las URLs reales de los PDFs
                     const pdfUrls = {
-                        '1': 'capitulo1.pdf',
-                        '2': 'capitulo2.pdf',
-                        '3': 'capitulo3.pdf',
-                        '4': 'capitulo4.pdf',
-                        '5': 'capitulo5.pdf',
-                        '6': 'capitulo6.pdf',
-                        '7': 'capitulo7.pdf',
-                        '8': 'capitulo8.pdf',
-                        '9': 'capitulo9.pdf',
-                        '10': 'capitulo10.pdf',
-                        '11': 'capitulo11.pdf',
-                        '12': 'capitulo12.pdf',
-                        '13': 'capitulo13.pdf',
-                        '14': 'capitulo14.pdf',
-                        '15': 'capitulo15.pdf',
-                        '16': 'capitulo16.pdf',
-                        '17': 'capitulo17.pdf',
-                        '18': 'capitulo18.pdf',
-                        '19': 'capitulo19.pdf',
-                        '20': 'capitulo20.pdf',
-                        '21': 'capitulo21.pdf',
-                        '22': 'capitulo22.pdf',
-                        '23': 'capitulo23.pdf',
-                        '24': 'capitulo24.pdf',
-                        '25': 'capitulo25.pdf',
-                        '26': 'capitulo26.pdf',
-                        '27': 'capitulo27.pdf',
-                        '28': 'capitulo28.pdf',
-                        '29': 'capitulo29.pdf',
-                        '30': 'indice.pdf'
+                        '1': '0001-0032.pdf',
+                        '2': '0033-0070.pdf',
+                        '3': '0071-0114.pdf',
+                        '4': '0115-0140.pdf',
+                        '5': '0141-0188.pdf',
+                        '6': '0189-0266.pdf',
+                        '7': '0267-0338.pdf',
+                        '8': '0339-0404.pdf',
+                        '9': '0405-0452.pdf',
+                        '10': '0453-0484.pdf',
+                        '11': '0485-0526.pdf',
+                        '12': '0527-0582.pdf',
+                        '13': '0583-0634.pdf',
+                        '14': '0635-0672.pdf',
+                        '15': '0673-0730.pdf',
+                        '16': '0731-0752.pdf',
+                        '17': '0753-0822.pdf',
+                        '18': '0823-0880.pdf',
+                        '19': '0881-0894.pdf',
+                        '20': '0895-0952.pdf',
+                        '21': '0953-0984.pdf',
+                        '22': '0985-1036.pdf',
+                        '23': '1037-1064.pdf',
+                        '24': '1065-1132.pdf',
+                        '25': '1133-1170.pdf',
+                        '26': '1171-1216.pdf',
+                        '27': '1217-1240.pdf',
+                        '28': '1241-1304.pdf',
+                        '29': '1305-1328.pdf',
+                        '30': '1329-1378.pdf'
                     };
+
 
                     const pdfUrl = pdfUrls[chapterNumber];
                     if (pdfUrl) {
